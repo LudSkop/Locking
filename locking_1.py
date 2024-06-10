@@ -1,3 +1,4 @@
+# Функція для розрахунку податку.
 def taxer(base_tax):
     def calculate(money):
         base_tax_1 = base_tax
