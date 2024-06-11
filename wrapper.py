@@ -3,6 +3,7 @@
 def greeting(name):
     print(f'Hello my name is: {name}')
 
+
 # Декоратор
 def greeting_decorator(func):
     def wrapper(*args, **kwargs):
