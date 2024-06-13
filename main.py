@@ -1,13 +1,28 @@
 from tabulate import tabulate
 
 
+def input_error(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except (ValueError, KeyError, IndexError):
+            return 'Give me name and phone please'
+        except Exception as e:
+            return f"An unexpected error occurred: {e}"
+    return inner
+
+
 headers = ["ім'я", "телефон"]
+
+
+@input_error
 def parse_input(user_input: str) -> tuple:
     cmd, *args = user_input.split()
     cmd = cmd.lower()
     return cmd, *args
 
 
+@input_error
 def add_contact(args: tuple, contacts: dict) -> str:
     name, phone = args
     if name in contacts:
@@ -18,13 +33,15 @@ def add_contact(args: tuple, contacts: dict) -> str:
         return 'Контакт додано'
 
 
+@input_error
 def show_all_contacts(contacts: dict) -> str:
     contacts = [[name, phone] for name, phone in contacts.items()]
     table = tabulate(contacts, headers=headers, tablefmt="grid")
     return table
 
 
-def show_contact(args: tuple, contacts:dict) -> str:
+@input_error
+def show_contact(args: tuple, contacts: dict) -> str:
     name = args[0]
     phone = contacts.get(name, "Контакт не знайдено")
     contact = [[name, phone]]
@@ -32,7 +49,7 @@ def show_contact(args: tuple, contacts:dict) -> str:
     return table
 
 
-
+@input_error
 def main():
     contacts = {}
     print("Ласкаво просимо в асистент бота!!!>>>")
@@ -43,7 +60,7 @@ def main():
         if command in ["exit", "close"]:
             print("До побачення!!!")
             break
-        elif command == "привіт":
+        elif command == 'hello':
             print("Привіт чим можу допомогти?")
         elif command in ["add", "change"]:
             print(add_contact(args, contacts))
