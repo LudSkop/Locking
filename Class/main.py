@@ -13,6 +13,9 @@ print(value)
 print(value.nickname)
 print(value.age)
 print(value.get_info())
+value.age = 4
+value.nickname = 'Pusha'
+print(value.get_info())
 
 
 
