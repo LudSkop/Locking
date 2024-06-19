@@ -9,7 +9,7 @@ class Animal:
 
 
 class Cat(Animal):
-    name = ['cat']
+    name = ['Cat']
 
     def __init__(self, nickname, age, owner):
         super().__init__(nickname, age)
@@ -29,7 +29,31 @@ print(cat.owner)
 print(cat.info_self())
 print(cat.saund())
 
+cat_2 = Cat('Borys', 9, 'Ivan')
+print(cat_2.name)
+cat.name[0] = 'Luda'
 
+print(cat.name)
+print(cat_2.nickname)
+print(cat_2.age)
+print(cat_2.owner)
+
+
+class Car:
+    brand = 'Toyota'
+
+
+p1 = Car()
+p2 = Car()
+print(p1.brand)
+print(p2.brand)
+
+Car.brand = 'Opel'
+
+print(p1.brand)
+print(p2.brand)
+print(dir(cat))
+print(dir(cat_2))
 
 
 
