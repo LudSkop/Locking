@@ -1,4 +1,4 @@
-
+# Наслідування
 class Animal:
     def __init__(self, nickname, age):
         self.nickname = nickname
@@ -53,7 +53,7 @@ Car.brand = 'Opel'
 print(p1.brand)
 print(p2.brand)
 print(dir(cat))
-print(dir(cat_2))
+print(dir(cat_2))# Показує всі атрибути і поля в екземплярі( в кінці будуть наші)
 
 
 
