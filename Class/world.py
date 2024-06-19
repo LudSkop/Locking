@@ -18,6 +18,9 @@ class Cat(Animal):
     def saund(self):
         return f'{self.nickname} says meeey '
 
+    def info_self(self):
+        return 3 * 10
+
 
 cat = Cat('Alisa', 6, 'Vladyclav')
 print(cat.nickname)
