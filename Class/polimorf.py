@@ -42,6 +42,6 @@ print(isinstance(dog, Dog))
 print('=================')
 print(type(dog) is Animal)
 print(type(dog) is Dog)
-for element in (cat, dog):
+for element in (cat, dog):       # Поліморфізм
     print(element.sound())
 
