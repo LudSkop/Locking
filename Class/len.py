@@ -27,3 +27,14 @@ if __name__ =='__main__':
     print(sum2([12, 45, 3]))
     print(sum2([2]))
     print(sum2([0]))
+
+
+    def double_char(sstr):
+        result = ''
+        for el in sstr:
+            result += el * 2
+        return result
+
+
+
+print(double_char('oleg'))
