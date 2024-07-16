@@ -11,5 +11,16 @@ def sum13(nums):
     return count
 
 
+
+def sum13(nums):
+    count = 0
+    for el in nums:
+        if el < 13:
+            count += el
+        else:
+            break
+    return count
+
+
 if __name__ == "__main__":
     print(sum13([4, 6, 1, 4, 5, 13, 45]))
