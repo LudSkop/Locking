@@ -1,8 +1,12 @@
 class Animal:
     def __init__(self, nickname, age, weight):
-        self.__nickname = nickname
-        self.__age = age
-        self.__weight = weight
+        self.__nickname = None
+        self.__age = None
+        self.__weight = None
+
+        self.nickname = nickname
+        self.age = age
+        self.weight = weight
 
     @property
     def name(self):
@@ -13,7 +17,7 @@ class Animal:
         if len(nickname) > 0:
             self.__nickname = nickname
         else:
-            raise ValueError ("Тварина має мати ім'я ")
+            raise ValueError("Тварина має мати ім'я ")
 
     @property
     def age(self):
@@ -39,5 +43,6 @@ class Animal:
             raise ValueError("Тварина не може мати таку вагу")
 
 
-a = Animal('Alissa', 7, 2500)
+a = Animal('Alissa', 5, -1)
 print(a.name, a.age, a.weight)
+
