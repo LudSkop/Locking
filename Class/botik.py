@@ -13,11 +13,7 @@ class Field:
 
 
 class Name(Field):
-    def __init__(self, value):
-        if value.isalpha():
-            super().__init__(value)
-        else:
-            raise ValueError("Invalid name  format.")
+    pass
 
 
 class Phone(Field):
@@ -29,34 +25,67 @@ class Phone(Field):
 
 
 class Email(Field):
-    def __init__(self, email):
-        self.email = email
+    def __init__(self, value):
+        self.value = value
         pattern = r"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$"
-        if re.match(pattern, email):
-            super().__init__(email)
+        if re.match(pattern, value):
+            super().__init__(value)
         else:
             raise ValueError("Invalid email")
 
 
 class Birthday(Field):
-    def __init__(self, birthday):
-        self.birthday = birthday
+    def __init__(self, value):
+        self.value = value
         date_format = "%Y-%m-%d"
-        parsed_date = datetime.strptime(birthday, date_format).date()
+        parsed_date = datetime.strptime(value, date_format).date()
         if parsed_date > datetime.now().date():
             raise ValueError(
                 Fore.LIGHTRED_EX + "Birthday date cannot be in the future"
             )
-        super().__init__(birthday)
-        #raise ValueError(Fore.BLUE + "Invalid birthday date, format Year-month-day")
+        super().__init__(value)
+
 
 
 class Record:
-    pass
 
+    def __init__(self, name, phone, email, birthday ):
+        self.name = Name(name)
+        self.phone = Phone(phone)
+        self.email = Email(email)
+        self.birthday = Birthday(birthday)
+
+    def __str__(self):
+        return f"{Fore.MAGENTA}Name: {self.name}\n{Fore.RED}Phone: {self.phone}\n{Fore.CYAN}Email: {self.email}\n{Fore.YELLOW}Birthday: {self.birthday}{Fore.RESET}"
 
 class AddressBook(UserList):
-    pass
+    def add_record(self, record):
+        self.append(record)
+
+    def find_record(self, name):
+        for record in self:
+            if record.name == name:
+                return record
+        return None
+
+    def remove_record(self, name):
+        record = self.find_record(name)
+        if record:
+            self.remove(record)
+        else:
+            print(Fore.LIGHTRED_EX + "Record not found.")
+
+    def update_record(self, name, phone=None, email=None, birthday=None):
+        record = self.find_record(name)
+        if record:
+            if phone:
+                record.phone = Phone(phone)
+            if email:
+                record.email = Email(email)
+            if birthday:
+                record.birthday = Birthday(birthday)
+        else:
+            print(Fore.LIGHTRED_EX + "Record not found.")
 
 
 if __name__ == '__main__':
@@ -68,3 +97,28 @@ if __name__ == '__main__':
     print(Fore.CYAN + email.value)
     birthday = Birthday('1980-05-16')
     print(birthday.value)
+    contact = Record('Vlad любимий син', '0631934048', 'vlad2000@gmail.com', '2000-01-28')
+    print(contact)
+    contact1 = Record('Luda','0963610573', 'luda80@gmail.com', '1980-05-16')
+    print(contact1)
+    contact1.name = 'Alissa'
+    print(contact1)
+    address_book = AddressBook()
+    address_book.add_record(contact)
+    address_book.add_record(contact1)
+    print('All contacts :')
+    for contact in address_book:
+        print(contact)
+
+        print("\nFind contact Vlad:")
+        print(address_book.find_record('Vlad'))
+
+        print("\nUpdate contact Vlad:")
+        address_book.update_record('Vlad', phone='0630000000')
+        print(address_book.find_record('Vlad'))
+
+        print("\nRemove contact Luda:")
+        address_book.remove_record('Luda')
+        print("All contacts:")
+        for record in address_book:
+            print(record)
